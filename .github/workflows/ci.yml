@@ -15,6 +15,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Docker
+        run: |
+          echo "Setting up Docker"
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
+
+      - name: Build Docker image
+        run: |
+          docker build -t mlops-lab-image .
+
+      - name: Run Docker container
+        run: |
+          docker run mlops-lab-image
+
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -24,7 +40,3 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Run training script
-        run: |
-          python housing.py  # Change this line to your Python file name
