@@ -18,10 +18,7 @@ jobs:
       - name: Set up Docker
         run: |
           echo "Setting up Docker"
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
+
 
       - name: Build Docker image
         run: |
@@ -31,10 +28,10 @@ jobs:
         run: |
           docker run mlops-lab-image
 
-      - name: Set up Python 3.9
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.8'
 
       - name: Install dependencies
         run: |
